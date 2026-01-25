@@ -1,3 +1,19 @@
+// src/data/projects.js
+
+import edueye1 from "../assets/images/projects/edueye-1.jpg";
+import edueye2 from "../assets/images/projects/edueye-2.jpg";
+import edueye3 from "../assets/images/projects/edueye-3.jpg";
+
+import mediguide1 from "../assets/images/projects/mediguide-1.jpg";
+import mediguide2 from "../assets/images/projects/mediguide-2.jpg";
+import mediguide3 from "../assets/images/projects/mediguide-3.jpg";
+import mediguide4 from "../assets/images/projects/mediguide-4.jpg";
+import mediguide5 from "../assets/images/projects/mediguide-5.jpg";
+import mediguide6 from "../assets/images/projects/mediguide-6.jpg";
+
+import gdogc1 from "../assets/images/projects/gdogc-1.jpg";
+import gdogc2 from "../assets/images/projects/gdogc-2.jpg";
+
 export const projects = [
   {
     id: "edueye",
@@ -5,12 +21,7 @@ export const projects = [
     year: "2025",
     descriptionKey: "project_edueye_desc",
     tech: ["Python", "AI", "Data Analysis"],
-    images: [
-      // TODO: Add images for EduEye
-      "/src/assets/images/projects/edueye-2.jpg",
-      "/src/assets/images/projects/edueye-3.jpg",
-      "/src/assets/images/projects/edueye-1.jpg",
-    ],
+    images: [edueye2, edueye3, edueye1],
   },
   {
     id: "mediguide",
@@ -18,15 +29,7 @@ export const projects = [
     year: "2025",
     descriptionKey: "project_mediguide_desc",
     tech: ["AI", "Healthcare", "Safety"],
-    images: [
-      // TODO: Add images for MediGuide
-      "/src/assets/images/projects/mediguide-6.jpg",
-      "/src/assets/images/projects/mediguide-2.jpg",
-      "/src/assets/images/projects/mediguide-4.jpg",
-      "/src/assets/images/projects/mediguide-3.jpg",
-      "/src/assets/images/projects/mediguide-5.jpg",
-      "/src/assets/images/projects/mediguide-1.jpg",
-    ],
+    images: [mediguide6, mediguide2, mediguide4, mediguide3, mediguide5, mediguide1],
   },
   {
     id: "gdogc-bootcamp",
@@ -34,10 +37,6 @@ export const projects = [
     year: "2025",
     descriptionKey: "project_gdogc_desc",
     tech: ["Python", "Machine Learning", "Classification", "Data Prep"],
-    images: [
-      // TODO: Add bootcamp project images
-      "/src/assets/images/projects/gdogc-1.jpg",
-      "/src/assets/images/projects/gdogc-2.jpg",
-    ],
+    images: [gdogc1, gdogc2],
   },
 ];
