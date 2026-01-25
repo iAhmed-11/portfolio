@@ -72,8 +72,16 @@ export default function Projects() {
       <div className="container">
         <Reveal>
           <div style={{ marginBottom: 14 }}>
-            <h3 style={{ margin: 0, fontSize: 22 }}>{t.projectsTitle || "Projects"}</h3>
-            <p style={{ margin: "8px 0 0", color: "var(--muted)", lineHeight: 1.9 }}>
+            <h3 style={{ margin: 0, fontSize: 22 }}>
+              {t.projectsTitle || "Projects"}
+            </h3>
+            <p
+              style={{
+                margin: "8px 0 0",
+                color: "var(--muted)",
+                lineHeight: 1.9,
+              }}
+            >
               {t.projectsSubtitle || ""}
             </p>
           </div>
@@ -86,7 +94,10 @@ export default function Projects() {
           }}
         >
           {projects.map((p, idx) => {
-            const cover = p.images?.[0] || "";
+            // ✅ always sanitize images first
+            const safeImages = (p.images || []).filter(Boolean);
+            const cover = safeImages[0] || "";
+
             const cardTitle = t[p.titleKey] || "Project";
             const cardDesc = t[p.descriptionKey] || "";
             const year = p.year || "";
@@ -125,22 +136,42 @@ export default function Projects() {
                           "radial-gradient(520px 220px at 30% 20%, rgba(124,92,255,0.18), transparent 60%)",
                       }}
                     >
-                      {/* TODO: Add a cover image as the first item in images[] */}
                       Project cover will be added here
                     </div>
                   )}
 
                   <div style={{ padding: 18 }}>
-                    <div style={{ display: "flex", justifyContent: "space-between", gap: 12 }}>
-                      <div style={{ fontWeight: 950, fontSize: 16 }}>{cardTitle}</div>
+                    <div
+                      style={{
+                        display: "flex",
+                        justifyContent: "space-between",
+                        gap: 12,
+                      }}
+                    >
+                      <div style={{ fontWeight: 950, fontSize: 16 }}>
+                        {cardTitle}
+                      </div>
                       <div style={{ color: "var(--muted)" }}>{year}</div>
                     </div>
 
-                    <p style={{ margin: "10px 0 0", color: "var(--muted)", lineHeight: 1.9 }}>
+                    <p
+                      style={{
+                        margin: "10px 0 0",
+                        color: "var(--muted)",
+                        lineHeight: 1.9,
+                      }}
+                    >
                       {cardDesc}
                     </p>
 
-                    <div style={{ marginTop: 14, display: "flex", gap: 8, flexWrap: "wrap" }}>
+                    <div
+                      style={{
+                        marginTop: 14,
+                        display: "flex",
+                        gap: 8,
+                        flexWrap: "wrap",
+                      }}
+                    >
                       {(p.tech || []).map((tag) => (
                         <span
                           key={tag}
@@ -149,7 +180,8 @@ export default function Projects() {
                             padding: "6px 10px",
                             borderRadius: 999,
                             fontSize: 12,
-                            background: "color-mix(in srgb, var(--card) 70%, transparent)",
+                            background:
+                              "color-mix(in srgb, var(--card) 70%, transparent)",
                           }}
                         >
                           {tag}
@@ -183,7 +215,14 @@ export default function Projects() {
               >
                 <div>
                   <div style={{ fontWeight: 950 }}>{title}</div>
-                  <div style={{ marginTop: 6, color: "var(--muted)", lineHeight: 1.7, maxWidth: 720 }}>
+                  <div
+                    style={{
+                      marginTop: 6,
+                      color: "var(--muted)",
+                      lineHeight: 1.7,
+                      maxWidth: 720,
+                    }}
+                  >
                     {desc}
                   </div>
                 </div>
@@ -222,7 +261,6 @@ export default function Projects() {
                       textAlign: "center",
                     }}
                   >
-                    {/* TODO: Add images[] for this project in src/data/projects.js */}
                     No images yet — add images[] to this project
                   </div>
                 )}
@@ -232,14 +270,26 @@ export default function Projects() {
                     <button
                       className="btn"
                       onClick={prev}
-                      style={{ position: "absolute", left: 12, top: "50%", transform: "translateY(-50%)", zIndex: 2 }}
+                      style={{
+                        position: "absolute",
+                        left: 12,
+                        top: "50%",
+                        transform: "translateY(-50%)",
+                        zIndex: 2,
+                      }}
                     >
                       ‹
                     </button>
                     <button
                       className="btn"
                       onClick={next}
-                      style={{ position: "absolute", right: 12, top: "50%", transform: "translateY(-50%)", zIndex: 2 }}
+                      style={{
+                        position: "absolute",
+                        right: 12,
+                        top: "50%",
+                        transform: "translateY(-50%)",
+                        zIndex: 2,
+                      }}
                     >
                       ›
                     </button>
@@ -267,10 +317,18 @@ export default function Projects() {
               </div>
 
               {images.length > 1 && (
-                <div style={{ padding: 14, display: "flex", gap: 10, flexWrap: "wrap", justifyContent: "center" }}>
+                <div
+                  style={{
+                    padding: 14,
+                    display: "flex",
+                    gap: 10,
+                    flexWrap: "wrap",
+                    justifyContent: "center",
+                  }}
+                >
                   {images.map((src, i) => (
                     <button
-                      key={src}
+                      key={`${src}-${i}`}
                       onClick={() => setActiveIndex(i)}
                       style={{
                         border:
@@ -285,7 +343,12 @@ export default function Projects() {
                       }}
                       aria-label={`Open image ${i + 1}`}
                     >
-                      <img src={src} alt={`thumb ${i + 1}`} className="project-thumb" draggable={false} />
+                      <img
+                        src={src}
+                        alt={`thumb ${i + 1}`}
+                        className="project-thumb"
+                        draggable={false}
+                      />
                     </button>
                   ))}
                 </div>

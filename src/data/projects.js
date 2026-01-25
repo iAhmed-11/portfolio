@@ -29,7 +29,14 @@ export const projects = [
     year: "2025",
     descriptionKey: "project_mediguide_desc",
     tech: ["AI", "Healthcare", "Safety"],
-    images: [mediguide6, mediguide2, mediguide4, mediguide3, mediguide5, mediguide1],
+    images: [
+      null, // ✅ mediguide-1 مخفية مؤقتًا (بدون حذف)
+      mediguide2,
+      mediguide4,
+      mediguide3,
+      mediguide5,
+      mediguide6,
+    ],
   },
   {
     id: "gdogc-bootcamp",
