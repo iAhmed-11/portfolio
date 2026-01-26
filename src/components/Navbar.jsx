@@ -18,7 +18,7 @@ function useActiveSectionRobust(ids) {
     let elements = getElements();
     if (!elements.length) return;
 
-    // ---- 1) IntersectionObserver ----
+    // 1) IntersectionObserver
     const obs = new IntersectionObserver(
       (entries) => {
         // pick the most visible intersecting section
@@ -37,7 +37,7 @@ function useActiveSectionRobust(ids) {
 
     elements.forEach((el) => obs.observe(el));
 
-    // ---- 2) Scroll fallback (fixes projects/cert/contact not updating) ----
+    // 2) Scroll fallback (fixes projects/cert/contact not updating)
     let raf = null;
     const onScroll = () => {
       if (raf) return;
@@ -111,18 +111,15 @@ export default function Navbar() {
     langCtx.toggleLang ||
     (() => langCtx.setLang?.(lang === "en" ? "ar" : "en"));
 
-  // ✅ IMPORTANT: include "home" only if you have id="home" (optional)
   const sections = useMemo(
     () => ["about", "skills", "projects", "experience", "certificates", "contact"],
     []
   );
 
-  // ✅ only keep sections that actually exist in the DOM (prevents mismatch bugs)
   const existingSections = useMemo(() => {
     return sections.filter((id) => typeof document !== "undefined" && document.getElementById(id));
   }, [sections]);
 
-  // if nothing found at first render, still use the list (observer will pick them once mounted)
   const idsToTrack = existingSections.length ? existingSections : sections;
 
   const active = useActiveSectionRobust(idsToTrack);

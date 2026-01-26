@@ -30,7 +30,7 @@ export const projects = [
     descriptionKey: "project_mediguide_desc",
     tech: ["AI", "Healthcare", "Safety"],
     images: [
-      null, // ✅ mediguide-1 مخفية مؤقتًا (بدون حذف)
+      null, // mediguide-1 مخفية مؤقتًا (بدون حذف)
       mediguide2,
       mediguide4,
       mediguide3,

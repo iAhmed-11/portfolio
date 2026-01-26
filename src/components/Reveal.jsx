@@ -18,7 +18,7 @@ export default function Reveal({ children, delay = 0, y = 14, once = false }) {
       (entries) => {
         const [entry] = entries;
         if (entry.isIntersecting) setShow(true);
-        else if (!once && entry.intersectionRatio < 0.02) setShow(false); // ✅ smart reset
+        else if (!once && entry.intersectionRatio < 0.02) setShow(false);
       },
       { threshold: [0, 0.02, 0.12] }
     );

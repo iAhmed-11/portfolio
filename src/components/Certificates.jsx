@@ -1,5 +1,5 @@
 // src/components/Certificates.jsx
-import { useContext, useEffect, useMemo, useRef, useState } from "react";
+import { useContext, useEffect, useMemo, useState } from "react";
 import Reveal from "./Reveal";
 import { LanguageContext } from "../i18n/LanguageContext";
 
@@ -10,13 +10,13 @@ import dlaiMath from "../assets/images/certificates/dlai-math-for-ml.jpg";
 import ibmEda from "../assets/images/certificates/ibm-eda-ml.jpg";
 import ibmReg from "../assets/images/certificates/ibm-supervised-regression.jpg";
 
-/* ✅ Python Track images */
+/* Python Track images */
 import umichBasics from "../assets/images/certificates/umich-python-basics.jpg";
 import umichFunctions from "../assets/images/certificates/umich-python-functions-files.jpg";
 import umichOop from "../assets/images/certificates/umich-python-classes-inheritance.jpg";
 import umichData from "../assets/images/certificates/umich-python-data-collection.jpg";
 
-function Modal({ open, onClose, title, children, bodyRef }) {
+function Modal({ open, onClose, title, children }) {
   if (!open) return null;
 
   return (
@@ -31,9 +31,7 @@ function Modal({ open, onClose, title, children, bodyRef }) {
           </button>
         </div>
 
-        <div className="cert-modal-body" ref={bodyRef}>
-          {children}
-        </div>
+        <div className="cert-modal-body">{children}</div>
       </div>
     </div>
   );
@@ -111,9 +109,6 @@ export default function Certificates() {
   const [q, setQ] = useState("");
   const [open, setOpen] = useState(null); // cert id OR "py:<id>"
 
-  // ✅ for scrolling with ArrowUp/ArrowDown
-  const modalBodyRef = useRef(null);
-
   const text = useMemo(() => {
     const ar = {
       title: "الشهادات",
@@ -168,9 +163,7 @@ export default function Certificates() {
         id: "kaust",
         featured: true,
         category: "ai",
-        title: lang === "ar"
-          ? "برنامج الذكاء الاصطناعي التمهيدي — KAUST × NTDP"
-          : "Introductory AI Training Program — KAUST × NTDP",
+        title: lang === "ar" ? "برنامج الذكاء الاصطناعي التمهيدي — KAUST × NTDP" : "Introductory AI Training Program — KAUST × NTDP",
         issuer: "KAUST Academy + NTDP",
         date: "Jan 2025",
         image: kaustImg,
@@ -179,9 +172,7 @@ export default function Certificates() {
       {
         id: "dlai1",
         category: "ai",
-        title: lang === "ar"
-          ? "تحسين الشبكات العصبية العميقة: الضبط والتنظيم والتحسين"
-          : "Improving Deep Neural Networks: Tuning, Regularization & Optimization",
+        title: lang === "ar" ? "تحسين الشبكات العصبية العميقة: الضبط والتنظيم والتحسين" : "Improving Deep Neural Networks: Tuning, Regularization & Optimization",
         issuer: "DeepLearning.AI",
         date: "Dec 2024",
         image: dlaiDeepNN,
@@ -190,9 +181,7 @@ export default function Certificates() {
       {
         id: "dlai2",
         category: "ai",
-        title: lang === "ar"
-          ? "رياضيات لتعلم الآلة وعلوم البيانات"
-          : "Mathematics for Machine Learning & Data Science",
+        title: lang === "ar" ? "رياضيات لتعلم الآلة وعلوم البيانات" : "Mathematics for Machine Learning & Data Science",
         issuer: "DeepLearning.AI",
         date: "Nov 2024",
         image: dlaiMath,
@@ -201,9 +190,7 @@ export default function Certificates() {
       {
         id: "ibm1",
         category: "data",
-        title: lang === "ar"
-          ? "تحليل استكشافي للبيانات لتعلم الآلة"
-          : "Exploratory Data Analysis for Machine Learning",
+        title: lang === "ar" ? "تحليل استكشافي للبيانات لتعلم الآلة" : "Exploratory Data Analysis for Machine Learning",
         issuer: "IBM",
         date: "Dec 2024",
         image: ibmEda,
@@ -212,9 +199,7 @@ export default function Certificates() {
       {
         id: "ibm2",
         category: "ai",
-        title: lang === "ar"
-          ? "تعلم آلة مُوجّه: الانحدار"
-          : "Supervised Machine Learning: Regression",
+        title: lang === "ar" ? "تعلم آلة مُوجّه: الانحدار" : "Supervised Machine Learning: Regression",
         issuer: "IBM",
         date: "Dec 2024",
         image: ibmReg,
@@ -249,18 +234,19 @@ export default function Certificates() {
   const openItem = useMemo(() => certs.find((x) => x.id === open), [certs, open]);
   const openPython = useMemo(() => pythonItems.find((x) => x.id === openPythonId), [pythonItems, openPythonId]);
 
-  // Helper to scroll modal body with arrows
-  const scrollModalBody = (dir) => {
-    const el = modalBodyRef.current;
-    if (!el) return;
-    const step = Math.max(80, Math.round(el.clientHeight * 0.18));
-    el.scrollBy({ top: dir === "down" ? step : -step, behavior: "smooth" });
-  };
+  // Lock body scroll when any modal is open
+  useEffect(() => {
+    const anyOpen = !!openItem || !!openPython;
+    if (!anyOpen) return;
 
-  // ✅ Keyboard:
-  // - ESC closes
-  // - ↑ ↓ scroll within modal (if large)
-  // - ← → only works when inside python track browsing (multiple items)
+    const prevOverflow = document.body.style.overflow;
+    document.body.style.overflow = "hidden";
+    return () => {
+      document.body.style.overflow = prevOverflow;
+    };
+  }, [openItem, openPython]);
+
+  // ESC closes any open modal. If inside python item, ESC returns to Track.
   useEffect(() => {
     if (!openItem && !openPython) return;
 
@@ -273,47 +259,12 @@ export default function Certificates() {
         e.preventDefault();
         if (openPython) setOpen("track");
         else setOpen(null);
-        return;
-      }
-
-      // scroll (no UI arrows)
-      if (e.key === "ArrowDown") {
-        e.preventDefault();
-        scrollModalBody("down");
-        return;
-      }
-      if (e.key === "ArrowUp") {
-        e.preventDefault();
-        scrollModalBody("up");
-        return;
-      }
-
-      // Left/Right only for multi-item browsing in python track
-      // (no looping)
-      const canLR = !!openPython && pythonItems.length > 1;
-      if (!canLR) return;
-
-      const idx = pythonItems.findIndex((x) => x.id === openPythonId);
-      if (idx === -1) return;
-
-      if (e.key === "ArrowLeft") {
-        e.preventDefault();
-        const prevIdx = Math.max(0, idx - 1);
-        setOpen(`py:${pythonItems[prevIdx].id}`);
-        return;
-      }
-
-      if (e.key === "ArrowRight") {
-        e.preventDefault();
-        const nextIdx = Math.min(pythonItems.length - 1, idx + 1);
-        setOpen(`py:${pythonItems[nextIdx].id}`);
-        return;
       }
     };
 
     window.addEventListener("keydown", onKeyDown);
     return () => window.removeEventListener("keydown", onKeyDown);
-  }, [openItem, openPython, openPythonId, pythonItems]);
+  }, [openItem, openPython]);
 
   return (
     <section id="certificates">
@@ -387,12 +338,7 @@ export default function Certificates() {
       </div>
 
       {/* Track Modal */}
-      <Modal
-        open={!!openItem && openItem?.isTrack}
-        onClose={() => setOpen(null)}
-        title={openItem?.title || ""}
-        bodyRef={modalBodyRef}
-      >
+      <Modal open={!!openItem && openItem?.isTrack} onClose={() => setOpen(null)} title={openItem?.title || ""}>
         <div style={{ color: "var(--muted)", marginBottom: 12 }}>
           {openItem?.issuer} • {openItem?.date} — {text.insideTrackHint}
         </div>
@@ -414,25 +360,15 @@ export default function Certificates() {
       </Modal>
 
       {/* Individual Python certificate modal */}
-      <Modal
-        open={!!openPython}
-        onClose={() => setOpen("track")}
-        title={openPython?.title || ""}
-        bodyRef={modalBodyRef}
-      >
-        <div className="cert-modal-img">
+      <Modal open={!!openPython} onClose={() => setOpen("track")} title={openPython?.title || ""}>
+        <div className="cert-modal-img cert-scroll-img">
           <img src={openPython?.image} alt={openPython?.title} />
         </div>
       </Modal>
 
       {/* Normal certificate modal */}
-      <Modal
-        open={!!openItem && !openItem?.isTrack}
-        onClose={() => setOpen(null)}
-        title={openItem?.title || ""}
-        bodyRef={modalBodyRef}
-      >
-        <div className="cert-modal-img">
+      <Modal open={!!openItem && !openItem?.isTrack} onClose={() => setOpen(null)} title={openItem?.title || ""}>
+        <div className="cert-modal-img cert-scroll-img">
           <img src={openItem?.image} alt={openItem?.title} />
         </div>
       </Modal>

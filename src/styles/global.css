@@ -1,6 +1,4 @@
-/* =========================
-   Global Reset & Variables
-   ========================= */
+/* Global Reset & Variables */
 
 :root {
   --primary: #7c5cff;
@@ -25,9 +23,7 @@
   --shadow: 0 18px 45px rgba(10, 12, 16, 0.12);
 }
 
-/* =========================
-   Base styles
-   ========================= */
+/* Base styles */
 
 * {
   box-sizing: border-box;
@@ -51,9 +47,7 @@ a {
   text-decoration: none;
 }
 
-/* =========================
-   Layout helpers
-   ========================= */
+/* Layout helpers */
 
 .container {
   width: min(1100px, 92%);
@@ -64,9 +58,7 @@ section {
   padding: 90px 0;
 }
 
-/* =========================
-   Buttons
-   ========================= */
+/* Buttons */
 
 .btn {
   border: 1px solid var(--border);
@@ -89,9 +81,7 @@ section {
   border-color: rgba(124, 92, 255, 0.35);
 }
 
-/* =========================
-   Cards & Grid
-   ========================= */
+/* Cards & Grid */
 
 .card {
   border: 1px solid var(--border);
@@ -113,9 +103,7 @@ section {
   gap: 18px;
 }
 
-/* =========================
-   Hero Section
-   ========================= */
+/* Hero Section */
 
 .hero {
   position: relative;
@@ -189,9 +177,7 @@ section {
   line-height: 1.8;
 }
 
-/* =========================
-   Photo Frame (Hero image)
-   ========================= */
+/* Photo Frame (Hero image) */
 
 .photo-frame {
   width: min(360px, 100%);
@@ -228,20 +214,16 @@ section {
   filter: contrast(1.02) saturate(1.02);
 }
 
-/* =========================
-   Projects Media (smart sizing)
-   ========================= */
+/* Projects Media */
 
-/* Card media wrapper */
 .project-media {
   position: relative;
-  height: 190px;                 /* ثابت للكرت */
+  height: 190px;
   overflow: hidden;
   border-bottom: 1px solid var(--border);
   background: rgba(255,255,255,0.03);
 }
 
-/* Blurred background using same image */
 .project-media::before {
   content: "";
   position: absolute;
@@ -254,7 +236,6 @@ section {
   transform: scale(1.1);
 }
 
-/* Soft overlay to keep it clean */
 .project-media::after {
   content: "";
   position: absolute;
@@ -263,19 +244,17 @@ section {
   opacity: 0.55;
 }
 
-/* Real image inside (no ugly stretch, no heavy crop) */
 .project-media img {
   position: relative;
   z-index: 1;
   width: 100%;
   height: 100%;
-  object-fit: contain;           /* هذا هو السر */
+  object-fit: contain;
   object-position: center;
-  padding: 10px;                 /* يعطي نفس جميل خاصة لو الصورة طولية */
+  padding: 10px;
   display: block;
 }
 
-/* Modal main image wrapper */
 .project-modal-media {
   position: relative;
   height: min(520px, 62vh);
@@ -315,7 +294,6 @@ section {
   display: block;
 }
 
-/* Thumbnails */
 .project-thumb {
   width: 92px;
   height: 62px;
@@ -333,6 +311,7 @@ section {
   display: grid;
   place-items: center;
   padding: 16px;
+  overscroll-behavior: contain; /* prevents scrolling the page behind */
 }
 
 .modal-card {
@@ -345,11 +324,16 @@ section {
   box-shadow: var(--shadow);
 }
 
+/* Mobile: keep header visible even if description is long */
+@media (max-width: 700px) {
+  .modal-head {
+    position: sticky;
+    top: 0;
+    z-index: 5;
+  }
+}
 
-
-/* =========================
-   Navbar (stable + clear)
-   ========================= */
+/* Navbar */
 
 .navbar {
   position: sticky;
@@ -370,9 +354,6 @@ section {
   box-shadow: var(--shadow);
   backdrop-filter: blur(14px);
 }
-
-/* ... باقي navbar زي ما هو عندك ... */
-
 
 .nav-left {
   display: flex;
@@ -455,7 +436,6 @@ section {
   background: rgba(124, 92, 255, 0.08);
 }
 
-/* Mobile */
 @media (max-width: 900px) {
   .navbar-inner {
     flex-direction: column;
@@ -470,9 +450,8 @@ section {
     justify-content: flex-start;
   }
 }
-/* =========================
-   Subtle Scroll Indicator
-   ========================= */
+
+/* Subtle Scroll Indicator */
 
 .scroll-indicator {
   position: absolute;
@@ -507,32 +486,19 @@ section {
 }
 
 @keyframes scrollDot {
-  0% {
-    transform: translateY(-8px);
-    opacity: 0;
-  }
-  40% {
-    opacity: 0.9;
-  }
-  70% {
-    transform: translateY(8px);
-    opacity: 0;
-  }
-  100% {
-    opacity: 0;
-  }
+  0% { transform: translateY(-8px); opacity: 0; }
+  40% { opacity: 0.9; }
+  70% { transform: translateY(8px); opacity: 0; }
+  100% { opacity: 0; }
 }
 
-/* hide indicator on very small screens */
 @media (max-height: 520px) {
   .scroll-indicator {
     display: none;
   }
 }
 
-/* =========================
-   Certificates UI (FIXED)
-   ========================= */
+/* Certificates UI */
 
 .cert-controls{
   margin-top: 14px;
@@ -563,7 +529,6 @@ section {
 }
 .cert-search::placeholder{ color: var(--muted); }
 
-/* ✅ THIS IS THE IMPORTANT PART */
 .cert-grid{
   margin-top: 18px;
   display: grid;
@@ -585,7 +550,6 @@ section {
   padding: 0;
 }
 
-/* make button cards behave nicely */
 .cert-card{
   border: 1px solid var(--border);
   background: var(--card);
@@ -603,7 +567,7 @@ section {
 .cert-thumb{
   position: relative;
   width: 100%;
-  aspect-ratio: 16 / 10; /* ✅ balanced */
+  aspect-ratio: 16 / 10;
   border-bottom: 1px solid var(--border);
   background: color-mix(in srgb, var(--bg) 70%, transparent);
 }
@@ -617,7 +581,6 @@ section {
 
 .cert-info{ padding: 14px; }
 
-/* ✅ Text contrast improvements in dark mode */
 .cert-title{
   color: var(--text);
   text-shadow: 0 1px 0 rgba(0,0,0,0.25);
@@ -626,7 +589,6 @@ section {
 .cert-meta{
   color: color-mix(in srgb, var(--text) 78%, transparent);
 }
-
 
 .cert-tags{
   margin-top: 10px;
@@ -640,7 +602,27 @@ section {
   padding: 6px 10px;
   border-radius: 999px;
   border: 1px solid var(--border);
-  background: color-mix(in srgb, var(--bg) 80%, transparent);
+  background: color-mix(in srgb, var(--bg) 82%, transparent);
+  color: color-mix(in srgb, var(--text) 92%, transparent);
+  font-weight: 800;
+  letter-spacing: 0.01em;
+}
+
+[data-theme="dark"] .cert-tag{
+  background: rgba(255,255,255,0.10);
+  border-color: rgba(255,255,255,0.22);
+  color: rgba(255,255,255,0.95);
+}
+
+[data-theme="light"] .cert-tag{
+  background: rgba(10,12,16,0.06);
+  border-color: rgba(10,12,16,0.14);
+  color: rgba(10,12,16,0.82);
+}
+
+[data-theme="dark"] .cert-tag:hover{
+  background: rgba(124,92,255,0.18);
+  border-color: rgba(124,92,255,0.40);
 }
 
 .cert-badge{
@@ -652,8 +634,6 @@ section {
   font-size: 12px;
   font-weight: 900;
   letter-spacing: -0.01em;
-
-  /* ✅ وضوح عالي في الدارك */
   color: #ffffff;
   background: rgba(124,92,255,0.55);
   border: 1px solid rgba(124,92,255,0.85);
@@ -668,13 +648,11 @@ section {
   box-shadow: 0 12px 28px rgba(10,12,16,0.12);
 }
 
-
 .cert-featured{
   border-color: rgba(124,92,255,0.45) !important;
   box-shadow: 0 22px 60px rgba(124,92,255,0.10);
 }
 
-/* Track card (no image) */
 .cert-track{
   padding: 14px !important;
   position: relative;
@@ -741,37 +719,42 @@ section {
   justify-content:center;
   padding: 18px;
   z-index: 9999;
+  overscroll-behavior: contain; /* prevents page behind from moving */
 }
 
 .cert-modal-card{
-  width: min(980px, 96vw);
-  height: min(90vh, 820px);     /* ✅ ثابت */
-  overflow: hidden;             /* ✅ مهم */
-  border-radius: 22px;
+  width: min(920px, 96vw);
+  max-height: 90vh;
+  overflow: hidden;
+  border-radius: 14px;
   border: 1px solid var(--border);
   background: color-mix(in srgb, var(--bg) 88%, transparent);
   backdrop-filter: blur(14px);
   box-shadow: var(--shadow);
   display: grid;
-  grid-template-rows: auto 1fr; /* ✅ header + body */
+  grid-template-rows: auto 1fr;
 }
 
 .cert-modal-head{
-  position: sticky;             /* ✅ ما يزاحم الصورة */
+  position: sticky;
   top: 0;
   z-index: 2;
   display:flex;
   align-items:center;
   justify-content:space-between;
   gap: 12px;
-  padding: 12px 14px;
+  padding: 10px 12px;
   border-bottom: 1px solid var(--border);
   background: color-mix(in srgb, var(--bg) 92%, transparent);
 }
 
+.cert-modal-title:empty{
+  display:none;
+}
+
 .cert-modal-body{
-  padding: 12px;
-  overflow: auto;               /* ✅ لو محتوى طويل */
+  padding: 8px;
+  overflow: auto;
 }
 
 .cert-modal-img{
@@ -781,130 +764,30 @@ section {
   place-items: center;
 }
 
+/* Default (normal images): keep contain */
 .cert-modal-img img{
   max-width: 100%;
   max-height: 100%;
   width: auto;
   height: auto;
-  object-fit: contain;          /* ✅ تظهر كاملة */
-  border-radius: 16px;
+  object-fit: contain;
+  border-radius: 10px;
   border: 1px solid var(--border);
   display: block;
 }
 
-/* Track modal list */
-.track-modal-sub{
-  color: var(--muted);
-  margin-bottom: 12px;
+/* For long/tall images: allow scrolling inside (no arrows) */
+.cert-scroll-img{
+  overflow: auto;
+  height: 100%;
+  width: 100%;
+  display: block;
+  padding: 6px;
 }
-
-.track-list{
-  display:grid;
-  gap: 12px;
-}
-
-.track-row{
-  border: 1px solid var(--border);
-  border-radius: 16px;
-  padding: 12px;
-  background: color-mix(in srgb, var(--bg) 78%, transparent);
-}
-
-.track-row-title{
-  font-weight: 900;
-}
-
-.track-row-meta{
-  margin-top: 6px;
-  color: var(--muted);
-  font-size: 13px;
-}
-
-/* =========================
-   Certificate Tags (Dark mode visibility fix)
-   ========================= */
-
-.cert-tags{
-  margin-top: 10px;
-  display:flex;
-  gap:8px;
-  flex-wrap:wrap;
-}
-
-.cert-tag{
-  font-size: 12px;
-  padding: 6px 10px;
-  border-radius: 999px;
-  border: 1px solid var(--border);
-  background: color-mix(in srgb, var(--bg) 82%, transparent);
-  color: color-mix(in srgb, var(--text) 92%, transparent);
-  font-weight: 800;
-  letter-spacing: 0.01em;
-}
-
-/* ✅ Dark mode: high contrast tags */
-[data-theme="dark"] .cert-tag{
-  background: rgba(255,255,255,0.10);
-  border-color: rgba(255,255,255,0.22);
-  color: rgba(255,255,255,0.95);
-}
-
-/* ✅ Light mode: clean tags */
-[data-theme="light"] .cert-tag{
-  background: rgba(10,12,16,0.06);
-  border-color: rgba(10,12,16,0.14);
-  color: rgba(10,12,16,0.82);
-}
-
-[data-theme="dark"] .cert-tag:hover{
-  background: rgba(124,92,255,0.18);
-  border-color: rgba(124,92,255,0.40);
-
-.cert-modal-title:empty{
-  display:none;
-}
-
-
-/* =========================
-   Certificates Modal – Thin Frame
-   ========================= */
-
-/* خفف إطار وحواف المودال */
-.cert-modal-card{
-  border-radius: 14px !important;  /* كان أكبر */
-  border-width: 1px !important;
-  width: min(920px, 96vw) !important; /* أصغر شوي */
-  max-height: 90vh !important;
-}
-
-/* خفف الهيدر */
-.cert-modal-head{
-  padding: 10px 12px !important;  /* كان 14+ */
-}
-
-/* خفف البودي */
-.cert-modal-body{
-  padding: 8px !important;        /* كان 14 */
-}
-
-/* خل الصورة تاخذ مساحة أكبر بدون ما يكبر الإطار */
-.cert-modal-img{
-  height: min(80vh, 780px) !important;
-  padding: 6px !important;
-  display: grid !important;
-  place-items: center !important;
-}
-
-/* الصورة تظهر كاملة */
-.cert-modal-img img{
-  max-width: 100% !important;
-  max-height: 100% !important;
-  width: auto !important;
-  height: auto !important;
-  object-fit: contain !important;
-
-  border-radius: 10px !important; /* أخف */
-  border: 1px solid var(--border) !important;
-}
-
+.cert-scroll-img img{
+  max-width: 100%;
+  height: auto;
+  max-height: none;
+  display: block;
+  margin: 0 auto;
 }
