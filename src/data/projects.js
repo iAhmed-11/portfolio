@@ -5,11 +5,11 @@ import edueye2 from "../assets/images/projects/edueye-2.jpg";
 import edueye3 from "../assets/images/projects/edueye-3.jpg";
 
 import mediguide1 from "../assets/images/projects/mediguide-1.jpg";
-import mediguide2 from "../assets/images/projects/mediguide-2.jpg";
-import mediguide3 from "../assets/images/projects/mediguide-3.jpg";
-import mediguide4 from "../assets/images/projects/mediguide-4.jpg";
-import mediguide5 from "../assets/images/projects/mediguide-5.jpg";
-import mediguide6 from "../assets/images/projects/mediguide-6.jpg";
+import mediguide2 from "../assets/images/projects/mediguide-6.jpg";
+import mediguide3 from "../assets/images/projects/mediguide-4.jpg";
+import mediguide4 from "../assets/images/projects/mediguide-2.jpg";
+import mediguide5 from "../assets/images/projects/mediguide-3.jpg";
+import mediguide6 from "../assets/images/projects/mediguide-5.jpg";
 
 import gdogc1 from "../assets/images/projects/gdogc-1.jpg";
 import gdogc2 from "../assets/images/projects/gdogc-2.jpg";
