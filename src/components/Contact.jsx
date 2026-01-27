@@ -1,10 +1,33 @@
+import { useContext } from "react";
+import { LanguageContext } from "../i18n/LanguageContext";
+
 export default function Contact() {
+  const langCtx = useContext(LanguageContext) || {};
+  const lang = langCtx.lang || "en";
+  const isAr = lang === "ar";
+
+  const content = {
+    title: isAr ? "تواصل معي" : "Contact",
+    subtitle: isAr
+      ? "حاب تتواصل؟ أنا مهتم بفرص التدريب/الوظيفة والتعاون في مشاريع الذكاء الاصطناعي."
+      : "Want to reach out? I’m open to internship/job opportunities and collaborative AI projects.",
+    emailLabel: isAr ? "البريد الإلكتروني" : "Email",
+    linkedinLabel: isAr ? "لينكدإن" : "LinkedIn",
+    githubLabel: isAr ? "جيت هب" : "GitHub",
+    emailAria: isAr ? "إرسال بريد إلى أحمد الشمراني" : "Email Ahmed Alshamrani",
+    linkedinAria: isAr ? "فتح لينكدإن (تبويب جديد)" : "Open LinkedIn profile (new tab)",
+    githubAria: isAr ? "فتح جيت هب (تبويب جديد)" : "Open GitHub profile (new tab)",
+  };
+
   return (
-    <section id="contact">
+    <section id="contact" aria-labelledby="contact-title" dir={isAr ? "rtl" : "ltr"}>
       <div className="container">
-        <h3 style={{ margin: 0, fontSize: 22 }}>Contact</h3>
-        <p style={{ marginTop: 10, color: "var(--muted)", maxWidth: 620 }}>
-          Want to reach out? I’m open to training opportunities and collaborative AI projects.
+        <h3 id="contact-title" style={{ margin: 0, fontSize: 22 }}>
+          {content.title}
+        </h3>
+
+        <p style={{ marginTop: 10, color: "var(--muted)", maxWidth: 720, lineHeight: 1.9 }}>
+          {content.subtitle}
         </p>
 
         <div
@@ -14,44 +37,38 @@ export default function Contact() {
             gridTemplateColumns: "repeat(auto-fit, minmax(220px, 1fr))",
           }}
         >
-          {/* Email */}
           <a
             href="mailto:iahmedh22@gmail.com"
             className="card"
             style={{ padding: 16 }}
+            aria-label={content.emailAria}
           >
-            <div style={{ fontWeight: 900 }}>Email</div>
-            <div style={{ marginTop: 6, color: "var(--muted)" }}>
-              iahmedh22@gmail.com
-            </div>
+            <div style={{ fontWeight: 900 }}>{content.emailLabel}</div>
+            <div style={{ marginTop: 6, color: "var(--muted)" }}>iahmedh22@gmail.com</div>
           </a>
 
-          {/* LinkedIn */}
           <a
-            href="https://www.linkedin.com/in/ahmed-h-alshamrani-b427b5322?utm_source=share&utm_campaign=share_via&utm_content=profile&utm_medium=ios_app"
+            href="https://www.linkedin.com/in/ahmed-h-alshamrani-b427b5322"
             target="_blank"
             rel="noopener noreferrer"
             className="card"
             style={{ padding: 16 }}
+            aria-label={content.linkedinAria}
           >
-            <div style={{ fontWeight: 900 }}>LinkedIn</div>
-            <div style={{ marginTop: 6, color: "var(--muted)" }}>
-              Ahmed H. Alshamrani
-            </div>
+            <div style={{ fontWeight: 900 }}>{content.linkedinLabel}</div>
+            <div style={{ marginTop: 6, color: "var(--muted)" }}>Ahmed H. Alshamrani</div>
           </a>
 
-          {/* GitHub */}
           <a
             href="https://github.com/iAhmed-11"
             target="_blank"
             rel="noopener noreferrer"
             className="card"
             style={{ padding: 16 }}
+            aria-label={content.githubAria}
           >
-            <div style={{ fontWeight: 900 }}>GitHub</div>
-            <div style={{ marginTop: 6, color: "var(--muted)" }}>
-              iAhmed-11
-            </div>
+            <div style={{ fontWeight: 900 }}>{content.githubLabel}</div>
+            <div style={{ marginTop: 6, color: "var(--muted)" }}>iAhmed-11</div>
           </a>
         </div>
       </div>
