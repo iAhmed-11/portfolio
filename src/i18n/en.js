@@ -55,7 +55,7 @@ export default {
   exp1Org: "Shaqra University",
   exp1Date: "2023 – Present",
   exp1Note: "Active participation in student-led tech initiatives and community learning.",
-  exp2Title: "English Language Training",
+  exp2Title: "English Language",
   exp2Org: "International House (Cape Town)",
   exp2Date: "2025",
   exp2Note: "Improved communication confidence for academic and professional contexts.",
